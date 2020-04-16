@@ -1,0 +1,152 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <conio.h>
+#include <dirent.h>
+#include <dir.h>
+#include <windows.h>
+
+
+int menu(){
+
+    int opcao;
+     printf("\t\t\t**************************\n");
+     printf("\t\t\t***       AGENDA       ***\n");
+     printf("\t\t\t**************************");
+
+
+     printf("\n\n\t\t  1  %c   CRIA TAREFA",26);
+     printf("\n\n\t\t  2  %c   MOSTRAR TAREFAS",26);
+     printf("\n\n\t\t  3  %c   EXCLUIR TAREFAS",26);
+     printf("\n\n\t\t  4  %c   LISTAR TAREFAS POR: ",26);
+     printf("\n\n\t\t  5  %c   SAIR  \n",26);
+
+
+    scanf("%d",&opcao);
+
+    return opcao;
+}
+
+
+void criarTarefa(){
+
+    setlocale(LC_ALL, "Portuguese");
+
+    int continua;
+    FILE *arquivo;
+    char FraseTarefa[150];
+    char NomeTarefa[100];
+    char caminho[110] = "Arquivos/";
+
+    printf(">>>>>>>>>> \t Criar tabela \t <<<<<<<<<<<< \n ");
+
+    printf("Digite o nome da sua tarefa. \t (MAX: 100 caracteres) \n");
+    fflush(stdin);
+    gets(NomeTarefa);
+
+    strcat(NomeTarefa, ".txt");
+    strcat(caminho,NomeTarefa);
+
+    arquivo = fopen(caminho,"w");
+    fclose(arquivo);
+
+    printf("Digite o texto do seu arquivo. \t (MAX: 150 caracteres) \n");
+    fflush(stdin);
+    gets(FraseTarefa);
+
+    arquivo = fopen(caminho,"w");
+    if (arquivo==NULL){
+        printf("Arquivo não criado");
+
+    }else{
+        fprintf(arquivo,"Frase: %s",FraseTarefa);
+        fclose(arquivo);
+        printf("Arquivo foi criado");
+    }
+
+
+
+
+}
+int mostrarDiretorio(){
+
+    setlocale(LC_ALL, "Portuguese");
+
+    DIR *diretorio;
+    struct dirent *lsdir;
+    int i = 1;
+    diretorio = opendir("C:\\Users\\Public\\Documents\\Projeto_C_Italo\\Arquivos\\");
+
+    while((lsdir = readdir(diretorio)) != NULL){
+        printf("%d -> %s \n",i, lsdir->d_name);
+        i++;
+    }
+
+    closedir(diretorio);
+
+    return 0;
+}
+void MostrarTarefa(){
+    setlocale(LC_ALL, "Portuguese");
+
+            char FraseTarefa[150];
+            FILE *arquivo = fopen("Arquivos/ital silva.txt", "r");
+
+
+            system("cls");
+
+            if(arquivo==NULL){
+                printf("Arquibvo nulo");
+            }else{
+                printf("Arquivo aberto. \n");
+                while(fgets(FraseTarefa, 150, arquivo)){
+                    printf("%s ",FraseTarefa);
+                }
+            }
+            fclose(arquivo);
+}
+void PreferenciasTarefa(){
+    system("cls");
+    printf("Tarefas abaixo");
+}
+
+
+int main()
+{
+    system ("color 0A");
+    setlocale(LC_ALL, "Portuguese");
+
+    int opcaoMenu;
+
+    do{
+        opcaoMenu = menu();
+
+    }while(opcaoMenu<1 || opcaoMenu>5);
+
+    switch(opcaoMenu){
+        case 1:
+            criarTarefa();
+
+        break;
+
+        case 2:
+            mostrarDiretorio();
+            //MostrarTarefa();
+
+        break;
+
+        case 3:
+            PreferenciasTarefa();
+
+        break;
+
+        case 0:
+            system("pause");
+
+        break;
+        default:
+            system("pause");
+        }
+
+    return 0;
+}

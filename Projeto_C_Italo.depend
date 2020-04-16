@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1564942516 source:c:\users\public\documents\projeto_c_italo\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<dirent.h>
+	<dir.h>
+	<time.h>
+
